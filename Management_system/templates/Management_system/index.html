@@ -1,0 +1,106 @@
+{% extends 'Management_system/base.html' %}
+
+
+
+{% block body %}
+
+<h3 class="m-4">All Student</h3>
+<div class="row">
+  <div class="col-12">
+    {% if Student %}
+    <div class="card bg-light ms-4 me-4 mb-4">
+      <div class="card-header">
+        <i class="fa-solid fa-list  fa-lg"></i></i> Student Records
+      </div>
+      <div class="card-body">
+
+        <p class="card-text">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th scope="col">Student Number</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Image</th>
+                <th scope="col">Email</th>
+                <th scope="col">Field of Study</th>
+                <th scope="col">Year</th>
+                <th scope="col">Actions</th>
+
+              </tr>
+            </thead>
+            <tbody>
+
+              {% for student in Student%}
+              <tr>
+                <td>{{student.Student_Adm}}</td>
+                <td>{{student.first_name}}</td>
+                <td>{{student.last_name}}</td>
+                <td><img src="{{student.image}}" height="150" width="100" /></td>
+                <td>{{student.email}}</td>
+                <td>{{student.field_of_study}}</td>
+                
+                <td>
+                  <button type="button" class="btn btn-success me-1" href="{% url 'student_record' student.id %}"
+                    data-bs-toggle="modal" data-bs-target="#myModal{{student.id}}">
+                    <i class="fa-solid fa-circle-info fa-lg"></i>
+                  </button>
+                  <!---Modal view-->
+                  <div class="modal " id="myModal{{student.id}}" tabindex="-1" aria-labelledby="myModalLabel1"
+                    aria-hidden=" true ">
+                    <div class="modal-dialog" role="document">
+                      <div class="modal-content">
+                        <div class="modal-header">
+                          <h5 class="modal-title">
+                            Student: {{student.first_name}} {{student.last_name}}
+                          </h5>
+                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                          </button>
+                        </div>
+                        <div class="modal-body">
+                          <ul class="list_unstyled">
+                            <li>Student number: <strong>{{student.Student_Adm}} </strong></li>
+                            <li>First Name: <strong>{{student.first_name}} </strong></li>
+                            <li>Last Name: <strong>{{student.last_name}} </strong></li>
+                            <li>Email: <strong>{{student.email}} </strong></li>
+
+                            <li>Field of Study: <strong>{{student.field_of_study}} </strong></li>
+                            <li>Student Year: <strong>{{student.year}} </strong></li>
+                          </ul>
+                        </div>
+                        <div class="modal-footer">
+
+                          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+
+
+            </tbody>
+          </table>
+        </div>
+        </p>
+
+      </div>
+    </div>
+    {% else %}
+    <h5 class="alert alert-primary ms-4 me-4">No Student Records</h5>
+
+    {% endif %}
+
+  </div>
+</div>
+
+{% endblock body  %}
+
+
+
+
+
+
